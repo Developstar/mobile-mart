@@ -1,9 +1,10 @@
 import { createApp } from 'vue'
 import App from './App.vue'
 import {createRouter, createWebHistory} from "vue-router"
-import HomePage from "./components/views/HomePage.vue"
-import LogIn from "./components/views/LogIn.vue"
-import AllProducts from "./components/views/AllProducts.vue"
+import HomePage from "./pages/HomePage.vue"
+import LogIn from "./pages/LogIn.vue"
+import AllProducts from "./pages/AllProducts.vue"
+import SignUp from "./pages/SignUp.vue"
 
 const router = createRouter({
     history: createWebHistory(),
@@ -21,6 +22,13 @@ const router = createRouter({
         path: "/AllProducts",
         name: "AllProducts",
         component: AllProducts
+    },
+
+    {
+        path: "/SignUp",
+        name: "SignUp",
+        component: SignUp
+
     }
 ]
 
