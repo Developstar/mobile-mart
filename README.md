@@ -1,4 +1,5 @@
 # mobile-mart
+Altschool_Africa FrontEnd Engineering Third Semester Examination Project
 
 ## Project setup
 ```
