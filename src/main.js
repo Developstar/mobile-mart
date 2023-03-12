@@ -5,6 +5,7 @@ import HomePage from "./pages/HomePage.vue"
 import LogIn from "./pages/LogIn.vue"
 import AllProducts from "./pages/AllProducts.vue"
 import SignUp from "./pages/SignUp.vue"
+import store from "./store/store"
 
 const router = createRouter({
     history: createWebHistory(),
@@ -34,4 +35,4 @@ const router = createRouter({
 
 })
 
-createApp(App).use(router).mount('#app')
+createApp(App).use(router).use(store).mount('#app')
