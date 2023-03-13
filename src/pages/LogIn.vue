@@ -8,19 +8,33 @@
     <router-link to="/AllProducts">AllProducts</router-link> -->
 
   <section>
-    <form action="" method="post">
+    <Form @submit="onSubmit" >
       <label for="username">Email:</label>
-      <input type="text" id="username" name="email" required v-model="email" /><br /><br />
+      <Field
+       type="email" 
+       id="email" 
+       name="email"  
+       :rules="validateEmail"
+       v-model="email" />
+       <ErrorMessage name="email" />
+       <br /><br />
+      <!-- <div class="errors" v-if="errors.email">
+        {{ errors.email }}
+      </div> -->
       <label for="password">Password:</label>
-      <input
+      <Field
         type="password"
         id="password"
         name="password"
-        required
         v-model="password"
+        :rules = "validatePassword"
       /><br /><br />
-      <input type="submit" value="Login" />
-    </form>
+      <ErrorMessage name="password" />
+      <!-- <div class="errors" v-if="errors.password">
+        {{ errors.password }}
+      </div> -->
+      <button>Submit</button>
+    </Form>
   </section>
   </section>
   
@@ -28,14 +42,60 @@
 
 <script>
 import { mapState } from 'vuex'
+import {Form, Field, ErrorMessage} from 'vee-validate' ;
+import Validations from '@/validations/validations';
 
 export default{
   data(){
     return{
       email: "",
       password: "",
+      errors: []
     }
   },
+
+  components:{
+    Form,
+    Field,
+    ErrorMessage
+  },
+
+  methods: {
+    onSubmit(values){
+      console.log(values);
+    },
+
+    validateEmail(value){
+      //if field is empty
+      if(!value){
+        return 'Field required';
+      }
+
+      // if  not a valid email
+      const validEmail = Validations.checkEmail(this.email)
+      if (!validEmail){
+        return 'This field must be a valid email';
+      }
+
+      // All is good
+      return true;
+    },
+
+    validatePassword(value){
+            //if field is empty
+            if(!value){
+        return 'Field required';
+      }
+
+      //if minNum of password is less than 6
+      const validNum = Validations.minLength(this.password, 6)
+      if(!validNum){
+            return 'Password should be of 6 characters';
+        }
+
+    }
+  },
+
   computed:{
     ...mapState("authentification", {
       firstName: (state) => state.name,
